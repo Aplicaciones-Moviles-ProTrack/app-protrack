@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginHorizontal="16dp"
+    android:layout_marginVertical="8dp"
+    app:cardCornerRadius="12dp"
+    app:cardElevation="2dp"
+    app:strokeColor="#E0E0E0"
+    app:strokeWidth="1dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="12dp">
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/ivProductoFoto"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:scaleType="centerCrop"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            tools:src="@tools:sample/backgrounds/scenic" />
+
+        <ImageView
+            android:id="@+id/ivAlertaStock"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_margin="4dp"
+            android:src="@android:drawable/stat_sys_warning"
+            app:tint="#F44336"
+            app:layout_constraintTop_toTopOf="@id/ivProductoFoto"
+            app:layout_constraintStart_toStartOf="@id/ivProductoFoto" />
+
+        <TextView
+            android:id="@+id/tvSku"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:textSize="12sp"
+            android:textColor="#757575"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toEndOf="@id/ivProductoFoto"
+            tools:text="# SKU-4521" />
+
+        <TextView
+            android:id="@+id/tvCategoriaBadge"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="10sp"
+            android:textColor="#00BCD4"
+            android:paddingHorizontal="8dp"
+            android:paddingVertical="2dp"
+            app:layout_constraintTop_toTopOf="@id/tvSku"
+            app:layout_constraintBottom_toBottomOf="@id/tvSku"
+            app:layout_constraintEnd_toEndOf="parent"
+            tools:text="Cerámicos" />
+
+        <TextView
+            android:id="@+id/tvNombreProducto"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            android:textColor="#212121"
+            android:maxLines="2"
+            android:ellipsize="end"
+            app:layout_constraintTop_toBottomOf="@id/tvSku"
+            app:layout_constraintStart_toStartOf="@id/tvSku"
+            app:layout_constraintEnd_toEndOf="parent"
+            tools:text="Porcelanato Pulido Gris 60x60" />
+
+        <TextView
+            android:id="@+id/tvStockInfo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:textSize="12sp"
+            android:textColor="#F44336"
+            android:drawablePadding="4dp"
+            app:drawableStartCompat="@android:drawable/ic_dialog_alert"
+            app:layout_constraintTop_toBottomOf="@id/tvNombreProducto"
+            app:layout_constraintStart_toStartOf="@id/tvSku"
+            tools:text="Stock: 12 m²" />
+
+        <TextView
+            android:id="@+id/tvPrecio"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:textColor="#212121"
+            app:layout_constraintTop_toBottomOf="@id/tvStockInfo"
+            app:layout_constraintStart_toStartOf="@id/tvSku"
+            app:layout_constraintBottom_toBottomOf="parent"
+            tools:text="S/.24.50" />
+
+        <TextView
+            android:id="@+id/tvUnidadPrecio"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+            android:textSize="12sp"
+            android:textColor="#757575"
+            app:layout_constraintBaseline_toBaselineOf="@id/tvPrecio"
+            app:layout_constraintStart_toEndOf="@id/tvPrecio"
+            tools:text="/m²" />
+
+        <TextView
+            android:id="@+id/btnDetalle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Detalle >"
+            android:textColor="#00BCD4"
+            android:textSize="12sp"
+            android:textStyle="bold"
+            android:paddingHorizontal="12dp"
+            android:paddingVertical="6dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</com.google.android.material.card.MaterialCardView>
