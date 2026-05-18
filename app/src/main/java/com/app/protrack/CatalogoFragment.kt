@@ -15,7 +15,14 @@ import kotlinx.coroutines.launch
 class CatalogoFragment : Fragment(R.layout.activity_catalogo) {
 
     private val viewModel: CatalogoViewModel by viewModels()
-    private val adapter = ProductoAdapter()
+    private val adapter = ProductoAdapter { productoSeleccionado ->
+        val fragment = DetalleProductoFragment.newInstance(productoSeleccionado)
+
+        parentFragmentManager.beginTransaction()
+            .replace(R.id.fragmentContainer, fragment)
+            .addToBackStack(null)
+            .commit()
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

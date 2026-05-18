@@ -45,4 +45,17 @@ class ProductoRepository {
             false
         }
     }
+
+    suspend fun actualizarStock(idProducto: String, nuevoStock: Int): Boolean {
+        return try {
+            // Utilizamos notación de puntos para actualizar un campo dentro de un mapa/objeto (inventario)
+            coleccion.document(idProducto)
+                .update("inventario.stock", nuevoStock)
+                .await() // Esperamos a que la transacción en la nube termine
+            true
+        } catch (e: Exception) {
+            e.printStackTrace()
+            false
+        }
+    }
 }

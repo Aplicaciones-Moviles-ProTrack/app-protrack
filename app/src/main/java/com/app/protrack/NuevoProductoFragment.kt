@@ -19,9 +19,8 @@ class NuevoProductoFragment : Fragment(R.layout.fragment_nuevo_producto) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // Referencias a las vistas (Ajusta los R.id según tu diseño XML)
         val etNombre = view.findViewById<EditText>(R.id.etNombreProducto)
-        val etCategoria = view.findViewById<EditText>(R.id.etCategoria) // O un Spinner si usas desplegable
+        val etCategoria = view.findViewById<EditText>(R.id.etCategoria)
         val etPrecioUnidad = view.findViewById<EditText>(R.id.etPrecioUnidad)
         val etPrecioCaja = view.findViewById<EditText>(R.id.etPrecioCaja)
         val etStock = view.findViewById<EditText>(R.id.etStockInicial)
@@ -30,14 +29,12 @@ class NuevoProductoFragment : Fragment(R.layout.fragment_nuevo_producto) {
         val btnGuardar = view.findViewById<Button>(R.id.btnGuardarProducto)
 
         btnGuardar.setOnClickListener {
-            // 1. Validar que los campos no estén vacíos (versión simplificada)
             val nombre = etNombre.text.toString()
             if (nombre.isEmpty()) {
                 etNombre.error = "Campo requerido"
                 return@setOnClickListener
             }
 
-            // 2. Construir el objeto Producto
             val nuevoInventario = Inventario(
                 stock = etStock.text.toString().toIntOrNull() ?: 0,
                 pasillo = etPasillo.text.toString(),
@@ -52,14 +49,12 @@ class NuevoProductoFragment : Fragment(R.layout.fragment_nuevo_producto) {
                 inventario = nuevoInventario
             )
 
-            // 3. Guardar en Firebase usando Corrutinas
-            btnGuardar.isEnabled = false // Deshabilitar botón para evitar dobles clicks
+            btnGuardar.isEnabled = false
 
             viewLifecycleOwner.lifecycleScope.launch {
                 val exito = repository.guardarProducto(nuevoProducto)
                 if (exito) {
                     Toast.makeText(requireContext(), "Producto guardado", Toast.LENGTH_SHORT).show()
-                    // Aquí puedes regresar al catálogo usando Navigation Component o FragmentManager
                     parentFragmentManager.popBackStack()
                 } else {
                     Toast.makeText(requireContext(), "Error al guardar", Toast.LENGTH_SHORT).show()
