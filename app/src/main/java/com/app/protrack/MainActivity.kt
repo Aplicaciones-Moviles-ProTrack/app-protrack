@@ -22,6 +22,10 @@ class MainActivity : AppCompatActivity() {
                     cambiarPantalla(HomeFragment())
                     true
                 }
+                R.id.nav_escanear -> {
+                    cambiarPantalla(EscanearQrFragment())
+                    true
+                }
                 R.id.nav_catalogo -> {
                     cambiarPantalla(CatalogoFragment())
                     true
