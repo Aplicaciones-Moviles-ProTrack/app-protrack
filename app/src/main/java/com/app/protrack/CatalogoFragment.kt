@@ -35,7 +35,10 @@ class CatalogoFragment : Fragment(R.layout.activity_catalogo) {
 
         val fabAgregar = view.findViewById<FloatingActionButton>(R.id.fabAgregar)
         fabAgregar.setOnClickListener {
-            Toast.makeText(requireContext(), "Abriendo registro de producto...", Toast.LENGTH_SHORT).show()
+            parentFragmentManager.beginTransaction()
+                .replace(R.id.fragmentContainer, NuevoProductoFragment())
+                .addToBackStack(null)
+                .commit()
         }
     }
 }

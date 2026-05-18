@@ -19,4 +19,30 @@ class ProductoRepository {
             emptyList()
         }
     }
+
+    suspend fun guardarProducto(producto: Producto): Boolean {
+        return try {
+            val documento = if (producto.id_producto.isEmpty()) coleccion.document() else coleccion.document(producto.id_producto)
+            producto.id_producto = documento.id
+
+            val datosFirebase = hashMapOf(
+                "id_producto" to producto.id_producto,
+                "foto_url" to producto.foto_url,
+                "nombre" to producto.nombre,
+                "marca" to producto.marca,
+                "categoria" to producto.categoria,
+                "precio_unidad" to producto.precio_unidad,
+                "precio_caja" to producto.precio_caja,
+                "unidad_medida" to producto.unidad_medida,
+                "inventario" to producto.inventario,
+                "activo" to true
+            )
+
+            documento.set(datosFirebase).await()
+            true
+        } catch (e: Exception) {
+            e.printStackTrace()
+            false
+        }
+    }
 }
