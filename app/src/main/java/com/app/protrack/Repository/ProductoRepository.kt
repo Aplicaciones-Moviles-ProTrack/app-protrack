@@ -58,4 +58,19 @@ class ProductoRepository {
             false
         }
     }
+
+    suspend fun obtenerProductoPorId(idProducto: String): Producto? {
+        return try {
+            val documento = coleccion.document(idProducto).get().await()
+
+            if (documento.exists()) {
+                documento.toObject(Producto::class.java)
+            } else {
+                null
+            }
+        } catch (e: Exception) {
+            e.printStackTrace()
+            null
+        }
+    }
 }
