@@ -57,27 +57,12 @@
             app:layout_constraintTop_toBottomOf="@id/etBuscar">
 
             <com.google.android.material.chip.ChipGroup
+                android:id="@+id/cgCategorias"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:singleLine="true"
-                app:singleSelection="true">
-
-                <com.google.android.material.chip.Chip
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Todos"
-                    app:chipBackgroundColor="#00BCD4"
-                    android:textColor="@android:color/white" />
-
-                <com.google.android.material.chip.Chip
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Stock bajo" />
-
-                <com.google.android.material.chip.Chip
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Cerámicos" />
+                app:singleSelection="true"
+                app:selectionRequired="true">
 
             </com.google.android.material.chip.ChipGroup>
         </HorizontalScrollView>
