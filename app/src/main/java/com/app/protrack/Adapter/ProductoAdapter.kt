@@ -55,11 +55,31 @@ class ProductoAdapter(
             tvCategoria.text = producto.categoria
             tvNombre.text = producto.nombre
             tvStock.text = "Stock: ${producto.inventario.stock} | ${producto.inventario.pasillo}"
-            tvPrecio.text = "S/.${producto.precio_unidad}"
-            tvUnidad.text = "/${producto.unidad_medida}"
 
-            btnDetalle.setOnClickListener {
-                onProductoClick(producto)
+            val iconoAlertaGrande = itemView.findViewById<ImageView>(R.id.ivAlertaStock)
+
+            if (producto.inventario.stock < 5) {
+
+                iconoAlertaGrande.visibility = View.VISIBLE
+
+                tvStock.setTextColor(android.graphics.Color.parseColor("#F44336"))
+
+                tvStock.setCompoundDrawablesWithIntrinsicBounds(
+                    android.R.drawable.ic_dialog_alert,
+                    0, 0, 0
+                )
+            } else {
+                iconoAlertaGrande.visibility = View.GONE
+                tvStock.setTextColor(android.graphics.Color.parseColor("#757575"))
+
+                tvStock.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0)
+            }
+            if (producto.precio_caja > 0) {
+                tvPrecio.text = "S/.${producto.precio_caja}"
+                tvUnidad.text = "/${producto.unidad_medida}"
+            } else {
+                tvPrecio.text = "S/.${producto.precio_unidad}"
+                tvUnidad.text = "/${producto.unidad_medida}"
             }
         }
     }

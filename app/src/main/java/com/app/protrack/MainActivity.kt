@@ -3,11 +3,20 @@ package com.app.protrack
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import com.cloudinary.android.MediaManager
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        val config = HashMap<String, String>()
+        config["cloud_name"] = "doooo87qx"
+        config["secure"] = "true"
+
+        try {
+            MediaManager.init(this, config)
+        } catch (e: Exception) {
+        }
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 

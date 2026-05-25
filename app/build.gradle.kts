@@ -57,4 +57,5 @@ dependencies {
 
     // Coil (Recomendado en Kotlin para cargar imágenes desde URLs)
     implementation("io.coil-kt:coil:2.4.0")
+    implementation("com.cloudinary:cloudinary-android:2.5.0")
 }

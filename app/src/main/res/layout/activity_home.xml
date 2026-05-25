@@ -98,6 +98,7 @@
                 <com.google.android.material.card.MaterialCardView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:id="@+id/btnEscanearQR"
                     android:layout_columnWeight="1"
                     android:layout_margin="8dp"
                     app:cardCornerRadius="12dp"
@@ -130,75 +131,75 @@
                     </LinearLayout>
                 </com.google.android.material.card.MaterialCardView>
 
-                <com.google.android.material.card.MaterialCardView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_columnWeight="1"
-                    android:layout_margin="8dp"
-                    app:cardCornerRadius="12dp"
-                    app:cardElevation="2dp"
-                    app:strokeColor="#E0E0E0"
-                    app:strokeWidth="1dp">
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        android:padding="16dp">
-                        <ImageView
-                            android:layout_width="32dp"
-                            android:layout_height="32dp"
-                            android:src="@android:drawable/ic_menu_compass"
-                            app:tint="#00BCD4" />
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Calculadora"
-                            android:textStyle="bold"
-                            android:textColor="#121B22"
-                            android:layout_marginTop="8dp"/>
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Rendimiento de m²"
-                            android:textColor="#757575"
-                            android:textSize="11sp"/>
-                    </LinearLayout>
-                </com.google.android.material.card.MaterialCardView>
+                <!-- <com.google.android.material.card.MaterialCardView
+                     android:layout_width="0dp"
+                     android:layout_height="wrap_content"
+                     android:layout_columnWeight="1"
+                     android:layout_margin="8dp"
+                     app:cardCornerRadius="12dp"
+                     app:cardElevation="2dp"
+                     app:strokeColor="#E0E0E0"
+                     app:strokeWidth="1dp">
+                     <LinearLayout
+                         android:layout_width="match_parent"
+                         android:layout_height="wrap_content"
+                         android:orientation="vertical"
+                         android:padding="16dp">
+                         <ImageView
+                             android:layout_width="32dp"
+                             android:layout_height="32dp"
+                             android:src="@android:drawable/ic_menu_compass"
+                             app:tint="#00BCD4" />
+                         <TextView
+                             android:layout_width="wrap_content"
+                             android:layout_height="wrap_content"
+                             android:text="Calculadora"
+                             android:textStyle="bold"
+                             android:textColor="#121B22"
+                             android:layout_marginTop="8dp"/>
+                         <TextView
+                             android:layout_width="wrap_content"
+                             android:layout_height="wrap_content"
+                             android:text="Rendimiento de m²"
+                             android:textColor="#757575"
+                             android:textSize="11sp"/>
+                     </LinearLayout>
+                 </com.google.android.material.card.MaterialCardView>
 
-                <com.google.android.material.card.MaterialCardView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_columnWeight="1"
-                    android:layout_margin="8dp"
-                    app:cardCornerRadius="12dp"
-                    app:cardElevation="2dp"
-                    app:strokeColor="#E0E0E0"
-                    app:strokeWidth="1dp">
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        android:padding="16dp">
-                        <ImageView
-                            android:layout_width="32dp"
-                            android:layout_height="32dp"
-                            android:src="@android:drawable/ic_menu_agenda"
-                            app:tint="#00BCD4" />
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Proformas"
-                            android:textStyle="bold"
-                            android:textColor="#121B22"
-                            android:layout_marginTop="8dp"/>
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Nueva cotización"
-                            android:textColor="#757575"
-                            android:textSize="11sp"/>
-                    </LinearLayout>
-                </com.google.android.material.card.MaterialCardView>
+                  <com.google.android.material.card.MaterialCardView
+                      android:layout_width="0dp"
+                      android:layout_height="wrap_content"
+                      android:layout_columnWeight="1"
+                      android:layout_margin="8dp"
+                      app:cardCornerRadius="12dp"
+                      app:cardElevation="2dp"
+                      app:strokeColor="#E0E0E0"
+                      app:strokeWidth="1dp">
+                      <LinearLayout
+                          android:layout_width="match_parent"
+                          android:layout_height="wrap_content"
+                          android:orientation="vertical"
+                          android:padding="16dp">
+                          <ImageView
+                              android:layout_width="32dp"
+                              android:layout_height="32dp"
+                              android:src="@android:drawable/ic_menu_agenda"
+                              app:tint="#00BCD4" />
+                          <TextView
+                              android:layout_width="wrap_content"
+                              android:layout_height="wrap_content"
+                              android:text="Proformas"
+                              android:textStyle="bold"
+                              android:textColor="#121B22"
+                              android:layout_marginTop="8dp"/>
+                          <TextView
+                              android:layout_width="wrap_content"
+                              android:layout_height="wrap_content"
+                              android:text="Nueva cotización"
+                              android:textColor="#757575"
+                              android:textSize="11sp"/>
+                      </LinearLayout>
+                  </com.google.android.material.card.MaterialCardView>-->
             </GridLayout>
 
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -237,6 +238,7 @@
                 app:cardBackgroundColor="#FDFDFD"
                 app:strokeColor="#E0E0E0"
                 app:strokeWidth="1dp">
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -252,90 +254,18 @@
                         android:textColor="#546E7A"
                         android:layout_marginBottom="12dp"/>
 
-                    <LinearLayout
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rvAlertas"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:gravity="center_vertical"
-                        android:background="@android:color/white"
-                        android:padding="8dp"
-                        android:layout_marginBottom="8dp">
-                        <ImageView
-                            android:layout_width="24dp"
-                            android:layout_height="24dp"
-                            android:src="@android:drawable/stat_sys_warning"
-                            app:tint="#F44336"/>
-                        <LinearLayout
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:layout_marginStart="12dp"
-                            android:orientation="vertical">
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="Porcelanato Gris 60×60"
-                                android:textStyle="bold"/>
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="Pisos y Revestimientos"
-                                android:textSize="12sp"
-                                android:textColor="#757575"/>
-                        </LinearLayout>
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="4 unidades\nCrítico"
-                            android:textColor="#F44336"
-                            android:textStyle="bold"
-                            android:textSize="12sp"
-                            android:gravity="end"/>
-                    </LinearLayout>
+                        android:nestedScrollingEnabled="false"
+                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                        tools:listitem="@layout/item_alerta" />
 
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:gravity="center_vertical"
-                        android:background="@android:color/white"
-                        android:padding="8dp">
-                        <ImageView
-                            android:layout_width="24dp"
-                            android:layout_height="24dp"
-                            android:src="@android:drawable/stat_sys_warning"
-                            app:tint="#F44336"/>
-                        <LinearLayout
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:layout_marginStart="12dp"
-                            android:orientation="vertical">
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="Adhesivo Pegamix Ultra"
-                                android:textStyle="bold"/>
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="Materiales de Agarre"
-                                android:textSize="12sp"
-                                android:textColor="#757575"/>
-                        </LinearLayout>
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="12 unidades\nCrítico"
-                            android:textColor="#F44336"
-                            android:textStyle="bold"
-                            android:textSize="12sp"
-                            android:gravity="end"/>
-                    </LinearLayout>
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
 
-            <com.google.android.material.card.MaterialCardView
+            <!--<com.google.android.material.card.MaterialCardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="20dp"
@@ -399,7 +329,7 @@
                         app:layout_constraintTop_toBottomOf="@id/tvClienteProf"
                         app:layout_constraintStart_toStartOf="parent"/>
                 </androidx.constraintlayout.widget.ConstraintLayout>
-            </com.google.android.material.card.MaterialCardView>
+            </com.google.android.material.card.MaterialCardView>-->
 
         </LinearLayout>
     </ScrollView>
