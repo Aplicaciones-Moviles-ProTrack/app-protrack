@@ -34,6 +34,7 @@ class ProductoRepository {
                 "precio_unidad" to producto.precio_unidad,
                 "precio_caja" to producto.precio_caja,
                 "unidad_medida" to producto.unidad_medida,
+                "rendimiento_m2_caja" to producto.rendimiento_m2_caja,
                 "inventario" to producto.inventario,
                 "activo" to true
             )

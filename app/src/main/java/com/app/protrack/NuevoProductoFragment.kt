@@ -47,6 +47,7 @@ class NuevoProductoFragment : Fragment(R.layout.fragment_nuevo_producto) {
         val etCategoria = view.findViewById<EditText>(R.id.etCategoria)
         val etPrecioUnidad = view.findViewById<EditText>(R.id.etPrecioUnidad)
         val etPrecioCaja = view.findViewById<EditText>(R.id.etPrecioCaja)
+        val etRendimientoCaja = view.findViewById<EditText>(R.id.etRendimientoCaja)
         val etStock = view.findViewById<EditText>(R.id.etStockInicial)
         val etPasillo = view.findViewById<EditText>(R.id.etPasillo)
         val etAnaquel = view.findViewById<EditText>(R.id.etAnaquel)
@@ -104,6 +105,7 @@ class NuevoProductoFragment : Fragment(R.layout.fragment_nuevo_producto) {
                             categoria = etCategoria.text.toString(),
                             precio_unidad = etPrecioUnidad.text.toString().toDoubleOrNull() ?: 0.0,
                             precio_caja = etPrecioCaja.text.toString().toDoubleOrNull() ?: 0.0,
+                            rendimiento_m2_caja = etRendimientoCaja.text.toString().toDoubleOrNull() ?: 0.0,
                             inventario = nuevoInventario,
                             foto_url = urlImagenCloudinary
                         )

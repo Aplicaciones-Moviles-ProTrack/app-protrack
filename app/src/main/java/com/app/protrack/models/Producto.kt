@@ -9,6 +9,7 @@ data class Producto(
     var precio_unidad: Double = 0.0,
     var precio_caja: Double = 0.0,
     var unidad_medida: String = "",
+    var rendimiento_m2_caja: Double = 0.0,
     var inventario: Inventario = Inventario()
 )
 
