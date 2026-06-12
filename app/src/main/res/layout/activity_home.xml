@@ -131,7 +131,8 @@
                     </LinearLayout>
                 </com.google.android.material.card.MaterialCardView>
 
-                <!-- <com.google.android.material.card.MaterialCardView
+                 <com.google.android.material.card.MaterialCardView
+                     android:id="@+id/btnCalcularArea"
                      android:layout_width="0dp"
                      android:layout_height="wrap_content"
                      android:layout_columnWeight="1"
@@ -199,7 +200,7 @@
                               android:textColor="#757575"
                               android:textSize="11sp"/>
                       </LinearLayout>
-                  </com.google.android.material.card.MaterialCardView>-->
+                  </com.google.android.material.card.MaterialCardView>
             </GridLayout>
 
             <androidx.constraintlayout.widget.ConstraintLayout
