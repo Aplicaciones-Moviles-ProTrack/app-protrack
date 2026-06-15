@@ -34,6 +34,11 @@ class HomeFragment : Fragment(R.layout.activity_home) {
             (activity as? MainActivity)?.cambiarPantalla(AreaFragment())
         }
 
+        val btnConversionCajas = view.findViewById<MaterialCardView>(R.id.btnConversionCajas)
+        btnConversionCajas.setOnClickListener {
+            (activity as? MainActivity)?.cambiarPantalla(ConversionCajasFragment())
+        }
+
         val fabAgregar = view.findViewById<FloatingActionButton>(R.id.fabGlobal)
         fabAgregar.setOnClickListener {
             (activity as? MainActivity)?.cambiarPantalla(NuevoProductoFragment())
