@@ -248,5 +248,16 @@
                 app:cornerRadius="16dp" />
         </LinearLayout>
 
+        <Button
+            android:id="@+id/btnAnadirProforma"
+            android:layout_width="match_parent"
+            android:layout_height="54dp"
+            android:layout_marginTop="12dp"
+            android:text="@string/btn_anadir_proforma"
+            android:textAllCaps="false"
+            android:textColor="#FFFFFF"
+            android:backgroundTint="#4CAF50"
+            app:cornerRadius="16dp" />
+
     </LinearLayout>
 </androidx.core.widget.NestedScrollView>

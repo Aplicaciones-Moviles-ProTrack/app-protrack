@@ -75,6 +75,7 @@ class DetalleProductoFragment : Fragment(R.layout.fragment_detalle_producto) {
         val btnTipoSalida = view.findViewById<Button>(R.id.btnTipoSalida)
         val btnConfirmar = view.findViewById<Button>(R.id.btnConfirmarAjuste)
         val btnGenerarQR = view.findViewById<Button>(R.id.btnGenerarQR)
+        val btnAnadirProforma = view.findViewById<Button>(R.id.btnAnadirProforma)
 
         // Cargar datos
         arguments?.let { args ->
@@ -94,6 +95,24 @@ class DetalleProductoFragment : Fragment(R.layout.fragment_detalle_producto) {
             tvUbicacion.text = "Pasillo $pasillo - Estante $anaquel"
 
             actualizarUIStock(tvStockGrande, tvAlertaStockBajo)
+        }
+
+        // --- LÓGICA DE AÑADIR A PROFORMA ---
+        btnAnadirProforma.setOnClickListener {
+            val producto = Producto(
+                id_producto = idProductoActual,
+                nombre = tvNombre.text.toString(),
+                categoria = categoriaProducto,
+                precio_unidad = arguments?.getDouble(KEY_PRECIO_UNI) ?: 0.0,
+                inventario = com.app.protrack.models.Inventario(
+                    stock = stockActual,
+                    pasillo = arguments?.getString(KEY_PASILLO) ?: "",
+                    anaquel_nivel = arguments?.getString(KEY_ANAQUEL) ?: ""
+                )
+            )
+            
+            ProformaManager.agregarProducto(producto)
+            mostrarAlerta(view, "${producto.nombre} ${getString(R.string.msg_anadido_proforma)}", "#4CAF50", android.R.drawable.checkbox_on_background)
         }
 
         // --- LÓGICA DEL QR RECUPERADA ---
@@ -140,13 +159,13 @@ class DetalleProductoFragment : Fragment(R.layout.fragment_detalle_producto) {
         // --- LÓGICA DE CONFIRMACIÓN ---
         btnConfirmar.setOnClickListener {
             if (cantidadAjuste == 0) {
-                mostrarAlerta(view, "Ingresa una cantidad para ajustar.", "#757575")
+                mostrarAlerta(view, "Ingresa una cantidad para ajustar.", "#757575", android.R.drawable.ic_dialog_info)
                 return@setOnClickListener
             }
 
             if (!esEntrada && cantidadAjuste > stockActual) {
                 tvCantidadAjuste.setTextColor(Color.RED)
-                mostrarAlerta(view, "⚠️ Error: Stock insuficiente para realizar esta salida.", "#F44336")
+                mostrarAlerta(view, "Error: Stock insuficiente para realizar esta salida.", "#F44336", android.R.drawable.stat_sys_warning)
             } else {
                 // Cálculo limpio del nuevo stock
                 val nuevoStockCalculado = if (esEntrada) stockActual + cantidadAjuste else stockActual - cantidadAjuste
@@ -159,13 +178,13 @@ class DetalleProductoFragment : Fragment(R.layout.fragment_detalle_producto) {
 
                     if (exito) {
                         stockActual = nuevoStockCalculado
-                        mostrarAlerta(view, "✅ Ajuste registrado correctamente. Nuevo stock: $stockActual", "#4CAF50")
+                        mostrarAlerta(view, "Ajuste registrado correctamente. Nuevo stock: $stockActual", "#4CAF50", android.R.drawable.checkbox_on_background)
 
                         cantidadAjuste = 0
                         tvCantidadAjuste.text = "0"
                         actualizarUIStock(tvStockGrande, tvAlertaStockBajo)
                     } else {
-                        mostrarAlerta(view, "❌ Error al conectar con el servidor.", "#F44336")
+                        mostrarAlerta(view, "Error al conectar con el servidor.", "#F44336", android.R.drawable.ic_dialog_alert)
                     }
 
                     btnConfirmar.isEnabled = true
@@ -186,10 +205,20 @@ class DetalleProductoFragment : Fragment(R.layout.fragment_detalle_producto) {
         }
     }
 
-    private fun mostrarAlerta(view: View, mensaje: String, colorHex: String) {
-        Snackbar.make(view, mensaje, Snackbar.LENGTH_LONG)
+    private fun mostrarAlerta(view: View, mensaje: String, colorHex: String, iconRes: Int? = null) {
+        val snackbar = Snackbar.make(view, mensaje, Snackbar.LENGTH_LONG)
             .setBackgroundTint(Color.parseColor(colorHex))
             .setTextColor(Color.WHITE)
-            .show()
+
+        iconRes?.let {
+            val tv = snackbar.view.findViewById<TextView>(com.google.android.material.R.id.snackbar_text)
+            val drawable = androidx.core.content.ContextCompat.getDrawable(requireContext(), it)?.apply {
+                setTint(Color.WHITE)
+            }
+            tv.setCompoundDrawablesWithIntrinsicBounds(drawable, null, null, null)
+            tv.compoundDrawablePadding = 24
+        }
+
+        snackbar.show()
     }
 }

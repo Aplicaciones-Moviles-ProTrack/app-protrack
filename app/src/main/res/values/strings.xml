@@ -1,3 +1,6 @@
 <resources>
     <string name="app_name">protrack</string>
+    <string name="btn_anadir_proforma">Añadir a Proforma</string>
+    <string name="msg_anadido_proforma">añadido a la proforma</string>
+    <string name="menu_proforma">Proforma</string>
 </resources>

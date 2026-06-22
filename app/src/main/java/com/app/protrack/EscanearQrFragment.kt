@@ -19,6 +19,10 @@ import com.journeyapps.barcodescanner.DecoratedBarcodeView
 import kotlinx.coroutines.launch
 import android.widget.TextView
 import android.widget.ImageButton
+import android.text.SpannableStringBuilder
+import android.text.style.ImageSpan
+import android.text.Spannable
+import androidx.core.content.ContextCompat
 
 class EscanearQrFragment : Fragment(R.layout.fragment_escanear_qr) {
 
@@ -113,6 +117,7 @@ class EscanearQrFragment : Fragment(R.layout.fragment_escanear_qr) {
                 val tvUbicacion = vista.findViewById<TextView>(R.id.tvSheetUbicacion)
                 val btnVerDetalle = vista.findViewById<Button>(R.id.btnVerDetalle)
                 val btnEscanearOtro = vista.findViewById<Button>(R.id.btnEscanearOtro)
+                val btnAnadirProforma = vista.findViewById<Button>(R.id.btnAnadirProforma)
 
                 tvNombre.text = producto.nombre
                 tvId.text = "ID: ${producto.id_producto}"
@@ -136,6 +141,18 @@ class EscanearQrFragment : Fragment(R.layout.fragment_escanear_qr) {
                     barcodeScanner.resume()
                 }
 
+                btnAnadirProforma.setOnClickListener {
+                    ProformaManager.agregarProducto(producto)
+                    mostrarToastConIcono(
+                        "${producto.nombre} ${getString(R.string.msg_anadido_proforma)}",
+                        android.R.drawable.checkbox_on_background
+                    )
+
+                    bottomSheet.dismiss()
+                    yaEscaneado = false
+                    barcodeScanner.resume()
+                }
+
                 bottomSheet.setOnDismissListener {
                     yaEscaneado = false
                     barcodeScanner.resume()
@@ -145,16 +162,27 @@ class EscanearQrFragment : Fragment(R.layout.fragment_escanear_qr) {
                 bottomSheet.show()
 
             } else {
-                Toast.makeText(
-                    requireContext(),
+                mostrarToastConIcono(
                     "No se encontró producto con ID: $contenidoQr",
-                    Toast.LENGTH_LONG
-                ).show()
+                    android.R.drawable.ic_dialog_alert
+                )
 
                 yaEscaneado = false
                 barcodeScanner.resume()
             }
         }
+    }
+
+    private fun mostrarToastConIcono(mensaje: String, iconRes: Int) {
+        val spannable = SpannableStringBuilder("   $mensaje")
+        val drawable = ContextCompat.getDrawable(requireContext(), iconRes)?.apply {
+            setBounds(0, 0, intrinsicWidth, intrinsicHeight)
+            setTint(android.graphics.Color.parseColor("#00BCD4"))
+        }
+        drawable?.let {
+            spannable.setSpan(ImageSpan(it, ImageSpan.ALIGN_BOTTOM), 0, 1, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+        }
+        Toast.makeText(requireContext(), spannable, Toast.LENGTH_SHORT).show()
     }
 
     override fun onResume() {
