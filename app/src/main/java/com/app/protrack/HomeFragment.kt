@@ -29,10 +29,6 @@ class HomeFragment : Fragment(R.layout.activity_home) {
             (activity as? MainActivity)?.cambiarPantalla(EscanearQrFragment())
         }
 
-        val btnCalcularArea = view.findViewById<MaterialCardView>(R.id.btnCalcularArea)
-        btnCalcularArea.setOnClickListener {
-            (activity as? MainActivity)?.cambiarPantalla(AreaFragment())
-        }
 
         val btnConversionCajas = view.findViewById<MaterialCardView>(R.id.btnConversionCajas)
         btnConversionCajas.setOnClickListener {

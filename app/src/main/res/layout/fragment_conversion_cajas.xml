@@ -24,17 +24,29 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:text="Ingresa el área calculada y selecciona un producto para obtener la cantidad de cajas necesarias."
+            android:text="Ingresa largo y ancho, selecciona un producto y obtén automáticamente el área en m² y la cantidad de cajas necesarias."
             android:textColor="#757575"
             android:textSize="14sp" />
 
         <EditText
-            android:id="@+id/etAreaM2"
+            android:id="@+id/etLargoConversion"
             android:layout_width="match_parent"
             android:layout_height="56dp"
             android:layout_marginTop="24dp"
             android:background="@android:color/white"
-            android:hint="Área en m²"
+            android:hint="Largo en metros"
+            android:inputType="numberDecimal"
+            android:paddingHorizontal="16dp"
+            android:textColor="#212121"
+            android:textColorHint="#9E9E9E" />
+
+        <EditText
+            android:id="@+id/etAnchoConversion"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:layout_marginTop="16dp"
+            android:background="@android:color/white"
+            android:hint="Ancho en metros"
             android:inputType="numberDecimal"
             android:paddingHorizontal="16dp"
             android:textColor="#212121"
@@ -80,6 +92,27 @@
                     android:text="Rendimiento: 0.00 m² por caja"
                     android:textColor="#757575"
                     android:textSize="14sp" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:gravity="center"
+                    android:text="ÁREA CALCULADA"
+                    android:textColor="#757575"
+                    android:textSize="12sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/tvAreaCalculada"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:gravity="center"
+                    android:text="0.00 m²"
+                    android:textColor="#00BCD4"
+                    android:textSize="30sp"
+                    android:textStyle="bold" />
 
                 <TextView
                     android:layout_width="match_parent"

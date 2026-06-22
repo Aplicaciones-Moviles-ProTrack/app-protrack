@@ -13,29 +13,35 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import com.app.protrack.Repository.ProductoRepository
 import com.app.protrack.models.Producto
+import com.app.protrack.utils.AreaCalculator
 import kotlinx.coroutines.launch
 
 class ConversionCajasFragment : Fragment(R.layout.fragment_conversion_cajas) {
 
     private val repository = ProductoRepository()
-    private val viewModel = ConversionCajasViewModel()
+    private val conversionViewModel = ConversionCajasViewModel()
+    private val areaCalculator = AreaCalculator()
 
     private var productos: List<Producto> = emptyList()
     private var productoSeleccionado: Producto? = null
 
-    private lateinit var etAreaM2: EditText
+    private lateinit var etLargo: EditText
+    private lateinit var etAncho: EditText
     private lateinit var spProductos: Spinner
     private lateinit var tvProductoSeleccionado: TextView
     private lateinit var tvRendimiento: TextView
+    private lateinit var tvAreaCalculada: TextView
     private lateinit var tvCajasNecesarias: TextView
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        etAreaM2 = view.findViewById(R.id.etAreaM2)
+        etLargo = view.findViewById(R.id.etLargoConversion)
+        etAncho = view.findViewById(R.id.etAnchoConversion)
         spProductos = view.findViewById(R.id.spProductos)
         tvProductoSeleccionado = view.findViewById(R.id.tvProductoSeleccionado)
         tvRendimiento = view.findViewById(R.id.tvRendimiento)
+        tvAreaCalculada = view.findViewById(R.id.tvAreaCalculada)
         tvCajasNecesarias = view.findViewById(R.id.tvCajasNecesarias)
 
         configurarTextWatcher()
@@ -57,18 +63,22 @@ class ConversionCajasFragment : Fragment(R.layout.fragment_conversion_cajas) {
                 before: Int,
                 count: Int
             ) {
-                actualizarConversion()
+                actualizarCalculoCompleto()
             }
 
             override fun afterTextChanged(s: Editable?) {}
         }
 
-        etAreaM2.addTextChangedListener(watcher)
+        etLargo.addTextChangedListener(watcher)
+        etAncho.addTextChangedListener(watcher)
     }
 
     private fun cargarProductos() {
         viewLifecycleOwner.lifecycleScope.launch {
             productos = repository.obtenerCatalogo()
+                .filter { producto ->
+                    producto.rendimiento_m2_caja > 0.0
+                }
 
             val nombresProductos = productos.map { producto ->
                 producto.nombre
@@ -86,6 +96,14 @@ class ConversionCajasFragment : Fragment(R.layout.fragment_conversion_cajas) {
 
             spProductos.adapter = adapter
 
+            if (productos.isEmpty()) {
+                productoSeleccionado = null
+                tvProductoSeleccionado.text = "Producto seleccionado: -"
+                tvRendimiento.text = "No hay productos con rendimiento registrado"
+                actualizarCalculoCompleto()
+                return@launch
+            }
+
             spProductos.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
                 override fun onItemSelected(
                     parent: AdapterView<*>?,
@@ -95,12 +113,12 @@ class ConversionCajasFragment : Fragment(R.layout.fragment_conversion_cajas) {
                 ) {
                     productoSeleccionado = productos[position]
                     actualizarDatosProducto()
-                    actualizarConversion()
+                    actualizarCalculoCompleto()
                 }
 
                 override fun onNothingSelected(parent: AdapterView<*>?) {
                     productoSeleccionado = null
-                    actualizarConversion()
+                    actualizarCalculoCompleto()
                 }
             }
         }
@@ -113,9 +131,16 @@ class ConversionCajasFragment : Fragment(R.layout.fragment_conversion_cajas) {
         tvRendimiento.text = "Rendimiento: ${producto.rendimiento_m2_caja} m² por caja"
     }
 
-    private fun actualizarConversion() {
-        val cajas = viewModel.calcularCajas(
-            areaTexto = etAreaM2.text.toString(),
+    private fun actualizarCalculoCompleto() {
+        val largo = etLargo.text.toString().toDoubleOrNull() ?: 0.0
+        val ancho = etAncho.text.toString().toDoubleOrNull() ?: 0.0
+
+        val area = areaCalculator.calcularArea(largo, ancho)
+
+        tvAreaCalculada.text = "$area m²"
+
+        val cajas = conversionViewModel.calcularCajas(
+            areaTexto = area.toString(),
             producto = productoSeleccionado
         )
 
