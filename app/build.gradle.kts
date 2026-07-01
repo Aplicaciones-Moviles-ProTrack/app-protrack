@@ -5,16 +5,12 @@ plugins {
 
 android {
     namespace = "com.app.protrack"
-    compileSdk {
-        version = release(36) {
-            minorApiLevel = 1
-        }
-    }
+    compileSdk = 37
 
     defaultConfig {
         applicationId = "com.app.protrack"
         minSdk = 24
-        targetSdk = 36
+        targetSdk = 37
         versionCode = 1
         versionName = "1.0"
 
@@ -58,4 +54,7 @@ dependencies {
     // Coil (Recomendado en Kotlin para cargar imágenes desde URLs)
     implementation("io.coil-kt:coil:2.4.0")
     implementation("com.cloudinary:cloudinary-android:2.5.0")
+    
+    // Gson para persistencia simple
+    implementation("com.google.code.gson:gson:2.10.1")
 }
