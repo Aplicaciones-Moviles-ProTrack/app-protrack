@@ -23,4 +23,3 @@ androidx-print = { group = "androidx.print", name = "print", version.ref = "prin
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
-
