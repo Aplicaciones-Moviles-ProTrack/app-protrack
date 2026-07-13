@@ -1,3 +1,5 @@
+import java.util.Properties
+
 plugins {
     alias(libs.plugins.android.application)
     id("com.google.gms.google-services")
@@ -7,6 +9,12 @@ android {
     namespace = "com.app.protrack"
     compileSdk = 37
 
+    val envFile = rootProject.file(".env")
+    val env = Properties()
+    if (envFile.exists()) {
+        env.load(envFile.inputStream())
+    }
+
     defaultConfig {
         applicationId = "com.app.protrack"
         minSdk = 24
@@ -15,6 +23,13 @@ android {
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+
+        buildConfigField("String", "RESEND_API_KEY", "\"${env.getProperty("RESEND_API_KEY") ?: ""}\"")
+        buildConfigField("String", "FROM_EMAIL", "\"${env.getProperty("FROM_EMAIL") ?: ""}\"")
+    }
+
+    buildFeatures {
+        buildConfig = true
     }
 
     buildTypes {
@@ -57,4 +72,5 @@ dependencies {
     
     // Gson para persistencia simple
     implementation("com.google.code.gson:gson:2.10.1")
+    implementation("com.squareup.okhttp3:okhttp:4.12.0")
 }

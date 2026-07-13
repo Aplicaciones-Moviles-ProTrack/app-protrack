@@ -19,6 +19,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.app.protrack.Adapter.ProformaAdapter
 import com.app.protrack.utils.CustomerCache
+import com.app.protrack.utils.EmailService
 import com.app.protrack.utils.PdfGenerator
 import com.app.protrack.utils.ValidationUtils
 import com.google.android.material.textfield.MaterialAutoCompleteTextView
@@ -49,6 +50,9 @@ class ProformaFragment : Fragment(R.layout.fragment_proforma) {
         val tilCorreo = view.findViewById<TextInputLayout>(R.id.tilCorreo)
         val etCorreo = view.findViewById<MaterialAutoCompleteTextView>(R.id.etCorreoCliente)
 
+        val tilAsunto = view.findViewById<TextInputLayout>(R.id.tilAsunto)
+        val etAsunto = view.findViewById<com.google.android.material.textfield.TextInputEditText>(R.id.etAsuntoCorreo)
+
         // Configurar autocompletado de correos
         val historicalCustomers = customerCache.getCustomers()
         if (historicalCustomers.isNotEmpty()) {
@@ -70,6 +74,8 @@ class ProformaFragment : Fragment(R.layout.fragment_proforma) {
             
             val emailStr = etCorreo.text.toString()
             val emailValido = ValidationUtils.isValidEmail(emailStr)
+
+            val asuntoValido = !etAsunto.text.isNullOrBlank()
             
             if (emailStr.isNotBlank() && !emailValido) {
                 tilCorreo.error = "Correo electrónico no válido"
@@ -78,8 +84,8 @@ class ProformaFragment : Fragment(R.layout.fragment_proforma) {
             }
             
             val tieneProductos = ProformaManager.items.value.isNotEmpty()
-            
-            val esValido = nombreValido && emailValido && tieneProductos
+
+            val esValido = nombreValido && emailValido && asuntoValido && tieneProductos
             
             btnGenerar.isEnabled = esValido
             // Cambiar color según el estado
@@ -91,6 +97,7 @@ class ProformaFragment : Fragment(R.layout.fragment_proforma) {
 
         etNombre.doAfterTextChanged { validarFormulario() }
         etCorreo.doAfterTextChanged { validarFormulario() }
+        etAsunto.doAfterTextChanged { validarFormulario() }
 
         adapter = ProformaAdapter(
             onEliminar = { item -> ProformaManager.removerProducto(item.producto.id_producto) },
@@ -128,6 +135,8 @@ class ProformaFragment : Fragment(R.layout.fragment_proforma) {
         btnGenerar.setOnClickListener {
             val nombre = etNombre.text.toString()
             val correo = etCorreo.text.toString()
+
+            val asunto = etAsunto.text.toString()
             
             val items = ProformaManager.items.value
             val subtotal = items.sumOf { it.producto.precio_unidad * it.cantidad }
@@ -148,15 +157,38 @@ class ProformaFragment : Fragment(R.layout.fragment_proforma) {
                 // Guardar en caché para futuras sugerencias
                 customerCache.saveCustomer(nombre, correo)
                 
-                Toast.makeText(requireContext(), "PDF generado con éxito", Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireContext(), "Enviando proforma por correo...", Toast.LENGTH_SHORT).show()
                 
-                // Compartir el PDF
-                compartirPdf(pdfFile)
+                // Enviar el PDF automáticamente en segundo plano
+                viewLifecycleOwner.lifecycleScope.launch {
+                    val mensajeCuerpo = """
+                        Estimado/a $nombre,
+                        
+                        Se adjunta la proforma generada desde la aplicación ProTrack.
+                        
+                        Saludos cordiales.
+                    """.trimIndent()
+
+                    val enviado = EmailService.enviarCorreoConPdf(
+                        destinatario = correo,
+                        asunto = asunto,
+                        mensaje = mensajeCuerpo,
+                        archivoPdf = pdfFile
+                    )
+
+                    if (enviado) {
+                        Toast.makeText(requireContext(), "¡Correo enviado correctamente!", Toast.LENGTH_SHORT).show()
+                    } else {
+                        Toast.makeText(requireContext(), "Error al enviar el correo. Verifica tu API Key.", Toast.LENGTH_LONG).show()
+                    }
+                }
 
                 // Limpiar campos de cliente
                 etNombre.text?.clear()
                 etCorreo.text?.clear()
+                etAsunto.text?.clear()
                 tilCorreo.error = null
+                tilAsunto.error = null
                 
                 // Limpiar productos de la proforma
                 ProformaManager.limpiarProforma()
@@ -164,21 +196,5 @@ class ProformaFragment : Fragment(R.layout.fragment_proforma) {
                 Toast.makeText(requireContext(), "Error al generar el PDF", Toast.LENGTH_SHORT).show()
             }
         }
-    }
-
-    private fun compartirPdf(archivo: File) {
-        val uri: Uri = FileProvider.getUriForFile(
-            requireContext(),
-            "${requireContext().packageName}.fileprovider",
-            archivo
-        )
-
-        val intent = Intent(Intent.ACTION_SEND).apply {
-            type = "application/pdf"
-            putExtra(Intent.EXTRA_STREAM, uri)
-            addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
-        }
-        
-        startActivity(Intent.createChooser(intent, "Compartir Proforma"))
     }
 }
