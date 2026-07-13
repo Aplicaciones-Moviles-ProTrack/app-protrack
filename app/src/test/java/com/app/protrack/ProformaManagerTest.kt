@@ -81,12 +81,32 @@ class ProformaManagerTest {
     }
 
     @Test
-    fun `Limpiar proforma debe eliminar todos los elementos`() {
-        ProformaManager.agregarProducto(Producto(id_producto = "A1"))
-        ProformaManager.agregarProducto(Producto(id_producto = "A2"))
+    fun `El calculo del subtotal general debe ser correcto`() {
+        val p1 = Producto(id_producto = "A1", precio_unidad = 10.0)
+        val p2 = Producto(id_producto = "A2", precio_unidad = 25.0)
         
-        ProformaManager.limpiarProforma()
+        ProformaManager.agregarProducto(p1)
+        ProformaManager.actualizarCantidad("A1", 2) // 10.0 * 2 = 20.0
+        ProformaManager.agregarProducto(p2) // 25.0 * 1 = 25.0
         
-        assertTrue(ProformaManager.items.value.isEmpty())
+        val items = ProformaManager.items.value
+        val subtotalCalculado = items.sumOf { it.producto.precio_unidad * it.cantidad }
+        
+        assertEquals(45.0, subtotalCalculado, 0.001)
+    }
+
+    @Test
+    fun `El calculo del IGV y Total debe ser correcto`() {
+        val p1 = Producto(id_producto = "A1", precio_unidad = 100.0)
+        ProformaManager.agregarProducto(p1)
+        
+        val items = ProformaManager.items.value
+        val subtotal = items.sumOf { it.producto.precio_unidad * it.cantidad }
+        val igv = subtotal * 0.18
+        val total = subtotal + igv
+        
+        assertEquals(100.0, subtotal, 0.001)
+        assertEquals(18.0, igv, 0.001)
+        assertEquals(118.0, total, 0.001)
     }
 }

@@ -1,7 +1,9 @@
 package com.app.protrack
 
+import android.content.Intent
 import android.content.res.ColorStateList
 import android.graphics.Color
+import android.net.Uri
 import android.os.Bundle
 import android.util.Patterns
 import android.view.View
@@ -9,6 +11,7 @@ import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
+import androidx.core.content.FileProvider
 import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
@@ -16,10 +19,12 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.app.protrack.Adapter.ProformaAdapter
 import com.app.protrack.utils.CustomerCache
+import com.app.protrack.utils.PdfGenerator
 import com.app.protrack.utils.ValidationUtils
 import com.google.android.material.textfield.MaterialAutoCompleteTextView
 import com.google.android.material.textfield.TextInputLayout
 import kotlinx.coroutines.launch
+import java.io.File
 
 class ProformaFragment : Fragment(R.layout.fragment_proforma) {
 
@@ -124,18 +129,56 @@ class ProformaFragment : Fragment(R.layout.fragment_proforma) {
             val nombre = etNombre.text.toString()
             val correo = etCorreo.text.toString()
             
-            // Guardar en caché para futuras sugerencias
-            customerCache.saveCustomer(nombre, correo)
-            
-            Toast.makeText(requireContext(), "Generando cotización para $nombre", Toast.LENGTH_SHORT).show()
-            
-            // Limpiar campos de cliente
-            etNombre.text?.clear()
-            etCorreo.text?.clear()
-            tilCorreo.error = null
-            
-            // Limpiar productos de la proforma
-            ProformaManager.limpiarProforma()
+            val items = ProformaManager.items.value
+            val subtotal = items.sumOf { it.producto.precio_unidad * it.cantidad }
+            val igv = subtotal * 0.18
+            val total = subtotal + igv
+
+            val pdfFile = PdfGenerator.generateProformaPdf(
+                requireContext(),
+                nombre,
+                correo,
+                items,
+                subtotal,
+                igv,
+                total
+            )
+
+            if (pdfFile != null) {
+                // Guardar en caché para futuras sugerencias
+                customerCache.saveCustomer(nombre, correo)
+                
+                Toast.makeText(requireContext(), "PDF generado con éxito", Toast.LENGTH_SHORT).show()
+                
+                // Compartir el PDF
+                compartirPdf(pdfFile)
+
+                // Limpiar campos de cliente
+                etNombre.text?.clear()
+                etCorreo.text?.clear()
+                tilCorreo.error = null
+                
+                // Limpiar productos de la proforma
+                ProformaManager.limpiarProforma()
+            } else {
+                Toast.makeText(requireContext(), "Error al generar el PDF", Toast.LENGTH_SHORT).show()
+            }
         }
+    }
+
+    private fun compartirPdf(archivo: File) {
+        val uri: Uri = FileProvider.getUriForFile(
+            requireContext(),
+            "${requireContext().packageName}.fileprovider",
+            archivo
+        )
+
+        val intent = Intent(Intent.ACTION_SEND).apply {
+            type = "application/pdf"
+            putExtra(Intent.EXTRA_STREAM, uri)
+            addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
+        }
+        
+        startActivity(Intent.createChooser(intent, "Compartir Proforma"))
     }
 }
