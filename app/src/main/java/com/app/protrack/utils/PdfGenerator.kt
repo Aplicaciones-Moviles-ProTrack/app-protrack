@@ -100,18 +100,21 @@ object PdfGenerator {
 
         // --- RESUMEN DE TOTALES ---
         currentY += 20f
-        val summaryX = 400f
-        canvas.drawText("Subtotal:", summaryX, currentY, paint)
-        canvas.drawText(String.format("S/. %.2f", subtotal), 490f, currentY, paint)
+        val summaryLabelX = 350f
+        val summaryValueX = marginEnd
+        val valuePaint = Paint(paint).apply { textAlign = Paint.Align.RIGHT }
+        canvas.drawText("Subtotal:", summaryLabelX, currentY, paint)
+        canvas.drawText(String.format("S/. %.2f", subtotal), summaryValueX, currentY, valuePaint)
         
         currentY += 20f
-        canvas.drawText("IGV (18%):", summaryX, currentY, paint)
-        canvas.drawText(String.format("S/. %.2f", igv), 490f, currentY, paint)
+        canvas.drawText("IGV (18%):", summaryLabelX, currentY, paint)
+        canvas.drawText(String.format("S/. %.2f", igv), summaryValueX, currentY, valuePaint)
         
         currentY += 25f
         titlePaint.textSize = 14f
-        canvas.drawText("TOTAL GENERAL:", summaryX, currentY, titlePaint)
-        canvas.drawText(String.format("S/. %.2f", total), 490f, currentY, titlePaint)
+        val totalValuePaint = Paint(titlePaint).apply { textAlign = Paint.Align.RIGHT }
+        canvas.drawText("TOTAL GENERAL:", summaryLabelX, currentY, titlePaint)
+        canvas.drawText(String.format("S/. %.2f", total), summaryValueX, currentY, totalValuePaint)
 
         // Pie de página
         canvas.drawText("Gracias por su preferencia.", marginStart, 810f, Paint().apply { textSize = 10f; color = Color.GRAY; typeface = Typeface.create(Typeface.DEFAULT, Typeface.ITALIC) })

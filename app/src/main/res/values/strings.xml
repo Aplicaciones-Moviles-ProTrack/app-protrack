@@ -3,4 +3,37 @@
     <string name="btn_anadir_proforma">Añadir a Proforma</string>
     <string name="msg_anadido_proforma">añadido a la proforma</string>
     <string name="menu_proforma">Proforma</string>
-</resources>
+    <string name="ver_historial">Ver historial</string>
+    <string name="historial_proformas">Historial de proformas</string>
+    <string name="historial_vacio">Aún no hay proformas guardadas</string>
+    <string name="volver">Volver</string>
+    <string name="precio_soles">S/. %1$.2f</string>
+    <plurals name="historial_productos">
+        <item quantity="one">%d producto</item>
+        <item quantity="other">%d productos</item>
+    </plurals>
+    <string name="buscar_proforma">Buscar por cliente o número…</string>
+    <string name="filtro_todas">Todas</string>
+    <string name="filtro_enviadas">Enviadas</string>
+    <string name="filtro_pendientes">Pendientes</string>
+    <string name="filtro_este_mes">Este mes</string>
+    <string name="estado_enviada">Enviada</string>
+    <string name="numero_proforma">NÚMERO</string>
+    <string name="cliente">Cliente</string>
+    <string name="total_proforma">Total proforma</string>
+    <string name="ver">Ver</string>
+    <string name="enviar">Enviar</string>
+    <string name="pdf">PDF</string>
+    <string name="mostrando">Mostrando</string>
+    <string name="valor_acumulado">Valor acumulado</string>
+    <string name="pdf_no_disponible">El archivo PDF ya no está disponible</string>
+    <string name="enviando_proforma">Enviando proforma…</string>
+    <string name="proforma_enviada">Proforma enviada correctamente</string>
+    <string name="error_enviar_proforma">No se pudo enviar la proforma</string>
+    <string name="sin_lector_pdf">No hay una aplicación para abrir archivos PDF</string>
+    <string name="mensaje_reenvio_proforma">Estimado/a %1$s, se adjunta nuevamente la proforma generada desde ProTrack.</string>
+    <string name="detalle_proforma">Correo: %1$s\nProductos: %2$d\nSubtotal: S/. %3$.2f\nIGV: S/. %4$.2f\nTotal: S/. %5$.2f</string>
+    <plurals name="historial_registros">
+        <item quantity="one">%d registro</item>
+        <item quantity="other">%d registros</item>
+    </plurals></resources>

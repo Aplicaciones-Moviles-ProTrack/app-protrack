@@ -12,18 +12,24 @@ import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
 import androidx.core.content.FileProvider
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
+import androidx.core.view.updatePadding
 import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.app.protrack.Adapter.ProformaAdapter
+import com.app.protrack.data.local.Proforma
 import com.app.protrack.utils.CustomerCache
 import com.app.protrack.utils.EmailService
 import com.app.protrack.utils.PdfGenerator
 import com.app.protrack.utils.ValidationUtils
 import com.google.android.material.textfield.MaterialAutoCompleteTextView
 import com.google.android.material.textfield.TextInputLayout
+import com.google.gson.Gson
 import kotlinx.coroutines.launch
 import java.io.File
 
@@ -31,9 +37,17 @@ class ProformaFragment : Fragment(R.layout.fragment_proforma) {
 
     private lateinit var adapter: ProformaAdapter
     private lateinit var customerCache: CustomerCache
+    private val historyViewModel: ProformaHistoryViewModel by activityViewModels()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        ViewCompat.setOnApplyWindowInsetsListener(view) { root, windowInsets ->
+            val systemBars = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars())
+            root.updatePadding(top = systemBars.top)
+            windowInsets
+        }
+        ViewCompat.requestApplyInsets(view)
 
         customerCache = CustomerCache(requireContext())
 
@@ -43,6 +57,10 @@ class ProformaFragment : Fragment(R.layout.fragment_proforma) {
         val tvIGV = view.findViewById<TextView>(R.id.tvIGV)
         val tvEmptyState = view.findViewById<TextView>(R.id.tvEmptyState)
         val btnGenerar = view.findViewById<Button>(R.id.btnGenerarCotizacion)
+
+        view.findViewById<Button>(R.id.btnVerHistorial).setOnClickListener {
+            (activity as? MainActivity)?.cambiarPantalla(HistorialProformasFragment())
+        }
         
         val tilNombre = view.findViewById<TextInputLayout>(R.id.tilNombre)
         val etNombre = view.findViewById<MaterialAutoCompleteTextView>(R.id.etNombreCliente)
@@ -154,6 +172,21 @@ class ProformaFragment : Fragment(R.layout.fragment_proforma) {
             )
 
             if (pdfFile != null) {
+                // Persistir una instantánea antes de limpiar la proforma de trabajo.
+                historyViewModel.guardar(
+                    Proforma(
+                        clienteNombre = nombre,
+                        clienteCorreo = correo,
+                        asunto = asunto,
+                        productosJson = Gson().toJson(items),
+                        cantidadProductos = items.sumOf { it.cantidad },
+                        subtotal = subtotal,
+                        igv = igv,
+                        total = total,
+                        rutaPdf = pdfFile.absolutePath
+                    )
+                )
+
                 // Guardar en caché para futuras sugerencias
                 customerCache.saveCustomer(nombre, correo)
                 
