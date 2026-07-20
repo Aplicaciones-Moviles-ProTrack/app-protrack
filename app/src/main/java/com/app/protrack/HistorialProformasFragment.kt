@@ -139,7 +139,7 @@ class HistorialProformasFragment : Fragment(R.layout.fragment_historial_proforma
         }
         viewLifecycleOwner.lifecycleScope.launch {
             Toast.makeText(requireContext(), R.string.enviando_proforma, Toast.LENGTH_SHORT).show()
-            val enviado = EmailService.enviarCorreoConPdf(
+            val resultado = EmailService.enviarCorreoConPdf(
                 proforma.clienteCorreo,
                 proforma.asunto,
                 getString(R.string.mensaje_reenvio_proforma, proforma.clienteNombre),
@@ -147,7 +147,7 @@ class HistorialProformasFragment : Fragment(R.layout.fragment_historial_proforma
             )
             Toast.makeText(
                 requireContext(),
-                if (enviado) R.string.proforma_enviada else R.string.error_enviar_proforma,
+                if (resultado.isSuccess) getString(R.string.proforma_enviada) else resultado.message,
                 Toast.LENGTH_LONG
             ).show()
         }

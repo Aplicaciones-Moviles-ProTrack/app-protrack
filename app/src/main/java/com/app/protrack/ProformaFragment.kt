@@ -202,17 +202,17 @@ class ProformaFragment : Fragment(R.layout.fragment_proforma) {
                         Saludos cordiales.
                     """.trimIndent()
 
-                    val enviado = EmailService.enviarCorreoConPdf(
+                    val resultado = EmailService.enviarCorreoConPdf(
                         destinatario = correo,
                         asunto = asunto,
                         mensaje = mensajeCuerpo,
                         archivoPdf = pdfFile
                     )
 
-                    if (enviado) {
+                    if (resultado.isSuccess) {
                         Toast.makeText(requireContext(), "¡Correo enviado correctamente!", Toast.LENGTH_SHORT).show()
                     } else {
-                        Toast.makeText(requireContext(), "Error al enviar el correo. Verifica tu API Key.", Toast.LENGTH_LONG).show()
+                        Toast.makeText(requireContext(), resultado.message, Toast.LENGTH_LONG).show()
                     }
                 }
 
