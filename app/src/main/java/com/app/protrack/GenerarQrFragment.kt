@@ -1,3 +1,4 @@
+// Genera y permite compartir el QR de un producto.
 package com.app.protrack
 
 import android.content.ContentValues
@@ -49,6 +50,7 @@ class GenerarQrFragment : Fragment(R.layout.fragment_generar_qr) {
         }
     }
 
+    // Configura vistas, estado y eventos de la pantalla.
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -117,6 +119,7 @@ class GenerarQrFragment : Fragment(R.layout.fragment_generar_qr) {
         }
     }
 
+    // Comparte la imagen QR mediante otras aplicaciones.
     private fun compartirQrImage(bitmap: Bitmap) {
         try {
             val cachePath = File(requireContext().cacheDir, "images")
@@ -149,6 +152,7 @@ class GenerarQrFragment : Fragment(R.layout.fragment_generar_qr) {
         }
     }
 
+    // Guarda el código QR en la galería del dispositivo.
     private fun guardarQrEnGaleria(bitmap: Bitmap) {
         viewLifecycleOwner.lifecycleScope.launch(Dispatchers.IO) {
             try {

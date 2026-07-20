@@ -1,3 +1,4 @@
+// Contiene la prueba unitaria básica del proyecto.
 package com.app.protrack
 
 import org.junit.Test
@@ -11,6 +12,7 @@ import org.junit.Assert.*
  */
 class ExampleUnitTest {
     @Test
+    // Verifica el caso: addition is correct.
     fun addition_isCorrect() {
         assertEquals(4, 2 + 2)
     }

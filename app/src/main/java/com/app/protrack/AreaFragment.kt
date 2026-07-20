@@ -1,3 +1,4 @@
+// Gestiona la pantalla de cálculo de área.
 package com.app.protrack
 
 import android.os.Bundle
@@ -14,6 +15,7 @@ class AreaFragment : Fragment() {
 
     private lateinit var viewModel: AreaViewModel
 
+    // Infla y prepara la vista del fragmento.
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -63,6 +65,7 @@ class AreaFragment : Fragment() {
         return vista
     }
 
+    // Recalcula y muestra el área introducida.
     private fun actualizarArea(
         etLargo: EditText,
         etAncho: EditText,

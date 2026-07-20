@@ -1,3 +1,4 @@
+// Gestiona el formulario y carga de un producto nuevo.
 package com.app.protrack
 
 import android.net.Uri
@@ -40,6 +41,7 @@ class NuevoProductoFragment : Fragment(R.layout.fragment_nuevo_producto) {
         }
     }
 
+    // Configura vistas, estado y eventos de la pantalla.
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 

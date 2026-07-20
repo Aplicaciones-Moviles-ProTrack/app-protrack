@@ -1,3 +1,4 @@
+// Verifica formatos válidos e inválidos de correo.
 package com.app.protrack
 
 import com.app.protrack.utils.ValidationUtils
@@ -7,6 +8,7 @@ import org.junit.Assert.*
 class EmailValidationTest {
 
     @Test
+    // Verifica que isvalidemail returns true for valid email formats.
     fun `isValidEmail returns true for valid email formats`() {
         assertTrue(ValidationUtils.isValidEmail("usuario@ejemplo.com"))
         assertTrue(ValidationUtils.isValidEmail("nombre.apellido@empresa.com.pe"))
@@ -15,6 +17,7 @@ class EmailValidationTest {
     }
 
     @Test
+    // Verifica que isvalidemail returns false for invalid email formats.
     fun `isValidEmail returns false for invalid email formats`() {
         assertFalse(ValidationUtils.isValidEmail(""))
         assertFalse(ValidationUtils.isValidEmail("   "))
@@ -26,6 +29,7 @@ class EmailValidationTest {
     }
 
     @Test
+    // Verifica que isvalidemail returns false for emails with special characters in domain.
     fun `isValidEmail returns false for emails with special characters in domain`() {
         assertFalse(ValidationUtils.isValidEmail("usuario@ejemplo!#$.com"))
     }

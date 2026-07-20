@@ -1,3 +1,4 @@
+// Define los repositorios y módulos que forman el proyecto.
 pluginManagement {
     repositories {
         google {

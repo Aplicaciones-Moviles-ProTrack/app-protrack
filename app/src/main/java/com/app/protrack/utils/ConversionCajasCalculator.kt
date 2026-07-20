@@ -1,9 +1,11 @@
+// Calcula cuántas cajas cubren un área determinada.
 package com.app.protrack.utils
 
 import kotlin.math.ceil
 
 class ConversionCajasCalculator {
 
+    // Calcula las cajas necesarias y redondea hacia arriba.
     fun calcularCajasNecesarias(
         areaM2: Double,
         rendimientoM2Caja: Double

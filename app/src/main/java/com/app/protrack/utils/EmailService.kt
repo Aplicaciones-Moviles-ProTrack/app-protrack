@@ -1,3 +1,4 @@
+// Envía proformas mediante Resend y traduce sus respuestas.
 package com.app.protrack.utils
 
 import android.util.Base64
@@ -23,6 +24,7 @@ object EmailService {
         val message: String
     )
 
+    // Valida la configuración y envía el PDF mediante Resend.
     suspend fun enviarCorreoConPdf(
         destinatario: String,
         asunto: String,
@@ -83,6 +85,7 @@ object EmailService {
         }
     }
 
+    // Convierte la respuesta de Resend en un mensaje comprensible.
     private fun parseResendError(statusCode: Int, responseBody: String): SendResult {
         val json = runCatching { JSONObject(responseBody) }.getOrNull()
         val errorType = json?.optString("name").orEmpty()

@@ -1,3 +1,4 @@
+// Comprueba las operaciones y totales de la proforma en memoria.
 package com.app.protrack
 
 import com.app.protrack.models.Producto
@@ -9,12 +10,14 @@ import org.junit.Test
 class ProformaManagerTest {
 
     @Before
+    // Prepara el estado común antes de cada prueba.
     fun setup() {
         // Limpiamos la proforma antes de cada prueba para asegurar independencia
         ProformaManager.limpiarProforma()
     }
 
     @Test
+    // Verifica que al agregar un producto nuevo, la lista debe tener 1 elemento.
     fun `Al agregar un producto nuevo, la lista debe tener 1 elemento`() {
         val producto = Producto(id_producto = "A1", nombre = "Producto 1", precio_unidad = 10.0)
         
@@ -27,6 +30,7 @@ class ProformaManagerTest {
     }
 
     @Test
+    // Verifica que al agregar el mismo producto dos veces, se debe incrementar la cantidad en el mismo item.
     fun `Al agregar el mismo producto dos veces, se debe incrementar la cantidad en el mismo item`() {
         val producto = Producto(id_producto = "A1", nombre = "Producto 1", precio_unidad = 10.0)
         
@@ -39,6 +43,7 @@ class ProformaManagerTest {
     }
 
     @Test
+    // Verifica que el calculo del total de items debe ser correcto para multiples productos.
     fun `El calculo del total de items debe ser correcto para multiples productos`() {
         val p1 = Producto(id_producto = "A1", precio_unidad = 10.0)
         val p2 = Producto(id_producto = "A2", precio_unidad = 20.0)
@@ -51,6 +56,7 @@ class ProformaManagerTest {
     }
 
     @Test
+    // Verifica que al remover un producto por id, la lista debe vaciarse correctamente.
     fun `Al remover un producto por ID, la lista debe vaciarse correctamente`() {
         val p1 = Producto(id_producto = "A1")
         ProformaManager.agregarProducto(p1)
@@ -61,6 +67,7 @@ class ProformaManagerTest {
     }
 
     @Test
+    // Verifica que actualizar cantidad a cero debe eliminar el producto de la lista.
     fun `Actualizar cantidad a cero debe eliminar el producto de la lista`() {
         val p1 = Producto(id_producto = "A1")
         ProformaManager.agregarProducto(p1)
@@ -71,6 +78,7 @@ class ProformaManagerTest {
     }
 
     @Test
+    // Verifica que actualizar cantidad de un producto existente debe reflejar el cambio.
     fun `Actualizar cantidad de un producto existente debe reflejar el cambio`() {
         val p1 = Producto(id_producto = "A1")
         ProformaManager.agregarProducto(p1)
@@ -81,6 +89,7 @@ class ProformaManagerTest {
     }
 
     @Test
+    // Verifica que el calculo del subtotal general debe ser correcto.
     fun `El calculo del subtotal general debe ser correcto`() {
         val p1 = Producto(id_producto = "A1", precio_unidad = 10.0)
         val p2 = Producto(id_producto = "A2", precio_unidad = 25.0)
@@ -96,6 +105,7 @@ class ProformaManagerTest {
     }
 
     @Test
+    // Verifica que el calculo del igv y total debe ser correcto.
     fun `El calculo del IGV y Total debe ser correcto`() {
         val p1 = Producto(id_producto = "A1", precio_unidad = 100.0)
         ProformaManager.agregarProducto(p1)

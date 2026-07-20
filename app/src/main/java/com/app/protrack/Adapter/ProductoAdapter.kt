@@ -1,3 +1,4 @@
+// Adapta los productos del catálogo a la lista visual.
 package com.app.protrack.Adapter
 
 import android.view.LayoutInflater
@@ -16,17 +17,21 @@ class ProductoAdapter(
     private val onProductoClick: (Producto) -> Unit
 ) : RecyclerView.Adapter<ProductoAdapter.ProductoViewHolder>() {
 
+    // Crea el contenedor visual de un elemento de la lista.
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ProductoViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_producto, parent, false)
         return ProductoViewHolder(view)
     }
 
+    // Devuelve la cantidad de elementos que se mostrarán.
     override fun getItemCount(): Int = listaProductos.size
 
+    // Vincula los datos con el elemento visible.
     override fun onBindViewHolder(holder: ProductoViewHolder, position: Int) {
         holder.bind(listaProductos[position])
     }
 
+    // Reemplaza la lista y refresca los elementos visibles.
     fun actualizarLista(nuevaLista: List<Producto>) {
         listaProductos = nuevaLista
         notifyDataSetChanged()

@@ -1,3 +1,4 @@
+// Coordina la búsqueda, filtros y navegación del catálogo.
 package com.app.protrack
 
 import android.os.Bundle
@@ -28,6 +29,7 @@ class CatalogoFragment : Fragment(R.layout.activity_catalogo) {
             .commit()
     }
 
+    // Configura vistas, estado y eventos de la pantalla.
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 

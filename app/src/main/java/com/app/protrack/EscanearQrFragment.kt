@@ -1,3 +1,4 @@
+// Escanea códigos QR y recupera el producto asociado.
 package com.app.protrack
 
 import android.Manifest
@@ -60,6 +61,7 @@ class EscanearQrFragment : Fragment(R.layout.fragment_escanear_qr) {
         }
     }
 
+    // Configura vistas, estado y eventos de la pantalla.
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -87,6 +89,7 @@ class EscanearQrFragment : Fragment(R.layout.fragment_escanear_qr) {
         pedirPermisoCamara.launch(Manifest.permission.CAMERA)
     }
 
+    // Solicita permisos e inicia el lector de códigos.
     private fun iniciarCamara() {
         yaEscaneado = false
 
@@ -101,6 +104,7 @@ class EscanearQrFragment : Fragment(R.layout.fragment_escanear_qr) {
         barcodeScanner.resume()
     }
 
+    // Busca el producto codificado y muestra su información.
     private fun procesarQr(contenidoQr: String) {
         viewLifecycleOwner.lifecycleScope.launch {
             val producto = repository.obtenerProductoPorId(contenidoQr)
@@ -173,6 +177,7 @@ class EscanearQrFragment : Fragment(R.layout.fragment_escanear_qr) {
         }
     }
 
+    // Presenta un aviso visual con icono y color.
     private fun mostrarToastConIcono(mensaje: String, iconRes: Int) {
         val spannable = SpannableStringBuilder("   $mensaje")
         val drawable = ContextCompat.getDrawable(requireContext(), iconRes)?.apply {
@@ -185,6 +190,7 @@ class EscanearQrFragment : Fragment(R.layout.fragment_escanear_qr) {
         Toast.makeText(requireContext(), spannable, Toast.LENGTH_SHORT).show()
     }
 
+    // Reactiva el escáner cuando la pantalla vuelve al frente.
     override fun onResume() {
         super.onResume()
         if (::barcodeScanner.isInitialized && !yaEscaneado) {
@@ -192,6 +198,7 @@ class EscanearQrFragment : Fragment(R.layout.fragment_escanear_qr) {
         }
     }
 
+    // Pausa la cámara mientras la pantalla no está activa.
     override fun onPause() {
         super.onPause()
         if (::barcodeScanner.isInitialized) {

@@ -1,3 +1,4 @@
+// Agrupa validaciones reutilizables de los formularios.
 package com.app.protrack.utils
 
 object ValidationUtils {

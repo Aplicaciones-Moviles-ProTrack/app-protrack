@@ -1,3 +1,4 @@
+// Comprueba la integración del ViewModel con el cálculo de cajas.
 package com.app.protrack
 
 import com.app.protrack.models.Producto
@@ -10,11 +11,13 @@ class ConversionCajasViewModelTest {
     private lateinit var viewModel: ConversionCajasViewModel
 
     @Before
+    // Prepara el estado común antes de cada prueba.
     fun setup() {
         viewModel = ConversionCajasViewModel()
     }
 
     @Test
+    // Verifica el caso: calcular cajas con producto seleccionado.
     fun calcularCajasConProductoSeleccionado() {
         val producto = Producto(
             nombre = "Porcelanato Gris Oxford 60x60",
@@ -30,6 +33,7 @@ class ConversionCajasViewModelTest {
     }
 
     @Test
+    // Verifica el caso: calcular cajas con area vacia.
     fun calcularCajasConAreaVacia() {
         val producto = Producto(
             nombre = "Porcelanato Gris Oxford 60x60",
@@ -45,6 +49,7 @@ class ConversionCajasViewModelTest {
     }
 
     @Test
+    // Verifica el caso: calcular cajas sin producto seleccionado.
     fun calcularCajasSinProductoSeleccionado() {
         val resultado = viewModel.calcularCajas(
             areaTexto = "20",

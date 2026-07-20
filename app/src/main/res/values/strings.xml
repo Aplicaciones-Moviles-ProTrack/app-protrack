@@ -1,3 +1,4 @@
+<!-- Agrupa recursos reutilizables para strings. -->
 <resources>
     <string name="app_name">protrack</string>
     <string name="btn_anadir_proforma">Añadir a Proforma</string>

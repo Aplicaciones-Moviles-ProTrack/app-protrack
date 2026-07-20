@@ -1,3 +1,4 @@
+// Gestiona el cálculo de cajas según área y rendimiento.
 package com.app.protrack
 
 import android.os.Bundle
@@ -33,6 +34,7 @@ class ConversionCajasFragment : Fragment(R.layout.fragment_conversion_cajas) {
     private lateinit var tvAreaCalculada: TextView
     private lateinit var tvCajasNecesarias: TextView
 
+    // Configura vistas, estado y eventos de la pantalla.
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -48,6 +50,7 @@ class ConversionCajasFragment : Fragment(R.layout.fragment_conversion_cajas) {
         cargarProductos()
     }
 
+    // Recalcula los resultados cuando cambian las medidas.
     private fun configurarTextWatcher() {
         val watcher = object : TextWatcher {
             override fun beforeTextChanged(
@@ -73,6 +76,7 @@ class ConversionCajasFragment : Fragment(R.layout.fragment_conversion_cajas) {
         etAncho.addTextChangedListener(watcher)
     }
 
+    // Carga los productos y actualiza el estado visible.
     private fun cargarProductos() {
         viewLifecycleOwner.lifecycleScope.launch {
             productos = repository.obtenerCatalogo()
@@ -124,6 +128,7 @@ class ConversionCajasFragment : Fragment(R.layout.fragment_conversion_cajas) {
         }
     }
 
+    // Muestra los datos del producto seleccionado.
     private fun actualizarDatosProducto() {
         val producto = productoSeleccionado ?: return
 
@@ -131,6 +136,7 @@ class ConversionCajasFragment : Fragment(R.layout.fragment_conversion_cajas) {
         tvRendimiento.text = "Rendimiento: ${producto.rendimiento_m2_caja} m² por caja"
     }
 
+    // Recalcula área y cajas con las entradas actuales.
     private fun actualizarCalculoCompleto() {
         val largo = etLargo.text.toString().toDoubleOrNull() ?: 0.0
         val ancho = etAncho.text.toString().toDoubleOrNull() ?: 0.0

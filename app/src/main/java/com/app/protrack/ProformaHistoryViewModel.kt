@@ -1,3 +1,4 @@
+// Expone y actualiza el historial local de proformas.
 package com.app.protrack
 
 import android.app.Application
@@ -18,6 +19,7 @@ class ProformaHistoryViewModel(application: Application) : AndroidViewModel(appl
     val historial: StateFlow<List<Proforma>> = dao.observarHistorial()
         .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), emptyList())
 
+    // Persiste la proforma sin bloquear la interfaz.
     fun guardar(proforma: Proforma) {
         viewModelScope.launch(Dispatchers.IO) {
             dao.insertar(proforma)

@@ -1,3 +1,4 @@
+// Comprueba que el contexto instrumentado corresponda a la aplicación.
 package com.app.protrack
 
 import androidx.test.platform.app.InstrumentationRegistry
@@ -16,6 +17,7 @@ import org.junit.Assert.*
 @RunWith(AndroidJUnit4::class)
 class ExampleInstrumentedTest {
     @Test
+    // Verifica el caso: use app context.
     fun useAppContext() {
         // Context of the app under test.
         val appContext = InstrumentationRegistry.getInstrumentation().targetContext

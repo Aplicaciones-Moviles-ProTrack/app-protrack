@@ -1,3 +1,4 @@
+// Dibuja y guarda el PDF de una proforma.
 package com.app.protrack.utils
 
 import android.content.Context
@@ -11,6 +12,7 @@ import java.util.*
 
 object PdfGenerator {
 
+    // Dibuja la proforma y devuelve el archivo PDF generado.
     fun generateProformaPdf(
         context: Context,
         customerName: String,

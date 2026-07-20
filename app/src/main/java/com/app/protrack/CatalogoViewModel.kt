@@ -1,3 +1,4 @@
+// Mantiene el estado filtrado y la carga del catálogo.
 package com.app.protrack
 
 import androidx.lifecycle.ViewModel
@@ -30,6 +31,7 @@ class CatalogoViewModel : ViewModel() {
         cargarProductos()
     }
 
+    // Carga los productos y actualiza el estado visible.
     private fun cargarProductos() {
         viewModelScope.launch {
             _isLoading.value = true
@@ -48,16 +50,19 @@ class CatalogoViewModel : ViewModel() {
         }
     }
 
+    // Actualiza el texto usado para filtrar productos.
     fun actualizarBusqueda(query: String) {
         queryActual = query
         aplicarFiltros()
     }
 
+    // Actualiza la categoría activa del catálogo.
     fun actualizarCategoria(categoria: String) {
         categoriaActual = categoria
         aplicarFiltros()
     }
 
+    // Combina búsqueda y categoría para filtrar el catálogo.
     private fun aplicarFiltros() {
         var listaFiltrada = listaOriginal
 

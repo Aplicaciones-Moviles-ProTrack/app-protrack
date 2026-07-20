@@ -1,3 +1,4 @@
+// Presenta el detalle de un producto y sus acciones.
 package com.app.protrack
 
 import android.graphics.Color
@@ -55,6 +56,7 @@ class DetalleProductoFragment : Fragment(R.layout.fragment_detalle_producto) {
         }
     }
 
+    // Configura vistas, estado y eventos de la pantalla.
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -194,6 +196,7 @@ class DetalleProductoFragment : Fragment(R.layout.fragment_detalle_producto) {
         }
     }
 
+    // Refresca el stock y su indicador visual.
     private fun actualizarUIStock(tvStockGrande: TextView, tvAlerta: TextView) {
         tvStockGrande.text = stockActual.toString()
         if (stockActual <= 5) {
@@ -205,6 +208,7 @@ class DetalleProductoFragment : Fragment(R.layout.fragment_detalle_producto) {
         }
     }
 
+    // Muestra una confirmación breve sobre la vista.
     private fun mostrarAlerta(view: View, mensaje: String, colorHex: String, iconRes: Int? = null) {
         val snackbar = Snackbar.make(view, mensaje, Snackbar.LENGTH_LONG)
             .setBackgroundTint(Color.parseColor(colorHex))

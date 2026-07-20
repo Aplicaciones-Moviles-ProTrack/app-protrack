@@ -1,3 +1,4 @@
+// Mantiene los indicadores y productos visibles en el inicio.
 package com.app.protrack
 
 import androidx.lifecycle.ViewModel
@@ -18,6 +19,7 @@ class HomeViewModel : ViewModel() {
         cargarAlertas()
     }
 
+    // Carga productos con stock bajo para el resumen inicial.
     private fun cargarAlertas() {
         viewModelScope.launch {
             val todosLosProductos = repository.obtenerCatalogo()

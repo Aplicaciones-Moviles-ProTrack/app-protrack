@@ -1,3 +1,4 @@
+// Controla la navegación principal entre pantallas.
 package com.app.protrack
 
 import android.os.Bundle
@@ -10,6 +11,7 @@ import kotlinx.coroutines.launch
 
 class MainActivity : AppCompatActivity() {
 
+    // Inicializa la pantalla y configura la navegación principal.
     override fun onCreate(savedInstanceState: Bundle?) {
         val config = HashMap<String, String>()
         config["cloud_name"] = "doooo87qx"
@@ -52,6 +54,7 @@ class MainActivity : AppCompatActivity() {
         actualizarBadgeProforma()
     }
 
+    // Actualiza el contador de productos de la navegación.
     private fun actualizarBadgeProforma() {
         val bottomNav = findViewById<BottomNavigationView>(R.id.bottomNavigation)
         val badge = bottomNav.getOrCreateBadge(R.id.nav_proforma)
@@ -69,6 +72,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    // Reemplaza el contenido principal por el fragmento solicitado.
     fun cambiarPantalla(fragment: Fragment) {
         supportFragmentManager.beginTransaction()
             .replace(R.id.fragmentContainer, fragment)

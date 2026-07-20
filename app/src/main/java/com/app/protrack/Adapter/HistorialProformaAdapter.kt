@@ -1,3 +1,4 @@
+// Presenta el historial de proformas y sus acciones disponibles.
 package com.app.protrack.Adapter
 
 import android.view.LayoutInflater
@@ -20,12 +21,14 @@ class HistorialProformaAdapter(
     private val onAbrirPdf: (Proforma) -> Unit
 ) : ListAdapter<Proforma, HistorialProformaAdapter.ViewHolder>(DiffCallback) {
 
+    // Crea el contenedor visual de un elemento de la lista.
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context)
             .inflate(R.layout.item_historial_proforma, parent, false)
         return ViewHolder(view)
     }
 
+    // Vincula los datos con el elemento visible.
     override fun onBindViewHolder(holder: ViewHolder, position: Int) = holder.bind(getItem(position))
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -38,6 +41,7 @@ class HistorialProformaAdapter(
         private val btnEnviar: MaterialButton = itemView.findViewById(R.id.btnHistorialEnviar)
         private val btnPdf: MaterialButton = itemView.findViewById(R.id.btnHistorialPdf)
 
+        // Asigna los datos y eventos al elemento visual.
         fun bind(proforma: Proforma) {
             val year = SimpleDateFormat("yyyy", Locale.getDefault()).format(Date(proforma.fechaCreacion))
             numero.text = "PF-$year-${proforma.id.toString().padStart(3, '0')}"

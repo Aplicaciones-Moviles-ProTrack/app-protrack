@@ -1,3 +1,4 @@
+// Verifica el cálculo de áreas en casos normales y límite.
 package com.app.protrack
 
 import com.app.protrack.utils.AreaCalculator
@@ -10,11 +11,13 @@ class AreaCalculatorTest {
     private lateinit var calculator: AreaCalculator
 
     @Before
+    // Prepara el estado común antes de cada prueba.
     fun setup() {
         calculator = AreaCalculator()
     }
 
     @Test
+    // Verifica el caso: calcular area con enteros.
     fun calcularAreaConEnteros() {
         val resultado = calculator.calcularArea(5.0, 4.0)
 
@@ -22,6 +25,7 @@ class AreaCalculatorTest {
     }
 
     @Test
+    // Verifica el caso: calcular area con decimales.
     fun calcularAreaConDecimales() {
         val resultado = calculator.calcularArea(2.5, 3.2)
 
@@ -29,6 +33,7 @@ class AreaCalculatorTest {
     }
 
     @Test
+    // Verifica el caso: calcular area con cero.
     fun calcularAreaConCero() {
         val resultado = calculator.calcularArea(0.0, 5.0)
 
@@ -36,6 +41,7 @@ class AreaCalculatorTest {
     }
 
     @Test
+    // Verifica el caso: calcular area campos vacios.
     fun calcularAreaCamposVacios() {
         val resultado = calculator.calcularArea(0.0, 0.0)
 

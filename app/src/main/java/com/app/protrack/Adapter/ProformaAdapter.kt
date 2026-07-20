@@ -1,3 +1,4 @@
+// Muestra y permite editar los productos de la proforma actual.
 package com.app.protrack.Adapter
 
 import android.view.LayoutInflater
@@ -15,17 +16,21 @@ class ProformaAdapter(
     private val onCantidadCambiada: (ProformaItem, Int) -> Unit
 ) : RecyclerView.Adapter<ProformaAdapter.ViewHolder>() {
 
+    // Crea el contenedor visual de un elemento de la lista.
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_proforma, parent, false)
         return ViewHolder(view)
     }
 
+    // Vincula los datos con el elemento visible.
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.bind(items[position])
     }
 
+    // Devuelve la cantidad de elementos que se mostrarán.
     override fun getItemCount(): Int = items.size
 
+    // Reemplaza la lista y refresca los elementos visibles.
     fun actualizarLista(nuevaLista: List<ProformaItem>) {
         items = nuevaLista
         notifyDataSetChanged()

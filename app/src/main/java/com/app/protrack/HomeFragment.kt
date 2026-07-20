@@ -1,3 +1,4 @@
+// Presenta el resumen principal de inventario y alertas.
 package com.app.protrack
 
 import android.os.Bundle
@@ -16,6 +17,7 @@ class HomeFragment : Fragment(R.layout.activity_home) {
     private val viewModel: HomeViewModel by viewModels()
     private val adapter = AlertaAdapter()
 
+    // Configura vistas, estado y eventos de la pantalla.
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 

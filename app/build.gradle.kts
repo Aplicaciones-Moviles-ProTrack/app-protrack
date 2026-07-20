@@ -1,3 +1,4 @@
+// Configura la aplicación Android, sus credenciales de compilación y dependencias.
 import java.util.Properties
 
 plugins {

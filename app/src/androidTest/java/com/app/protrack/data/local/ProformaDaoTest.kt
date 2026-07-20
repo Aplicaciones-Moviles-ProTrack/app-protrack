@@ -1,3 +1,4 @@
+// Valida la persistencia y el orden del historial de proformas.
 package com.app.protrack.data.local
 
 import android.content.Context
@@ -18,6 +19,7 @@ class ProformaDaoTest {
     private lateinit var dao: ProformaDao
 
     @Before
+    // Verifica el caso: crear base de datos.
     fun crearBaseDeDatos() {
         val context = ApplicationProvider.getApplicationContext<Context>()
         database = Room.inMemoryDatabaseBuilder(context, ProtrackDatabase::class.java)
@@ -27,11 +29,13 @@ class ProformaDaoTest {
     }
 
     @After
+    // Verifica el caso: cerrar base de datos.
     fun cerrarBaseDeDatos() {
         database.close()
     }
 
     @Test
+    // Verifica el caso: insertar yrecuperar proforma conserva todos los datos.
     fun insertarYRecuperarProformaConservaTodosLosDatos() = runBlocking {
         val original = proformaDePrueba(cliente = "Constructora Lima", fecha = 1000L)
 
@@ -44,6 +48,7 @@ class ProformaDaoTest {
     }
 
     @Test
+    // Verifica el caso: recuperar historial ordena la mas reciente primero.
     fun recuperarHistorialOrdenaLaMasRecientePrimero() = runBlocking {
         dao.insertar(proformaDePrueba(cliente = "Cliente antiguo", fecha = 1000L))
         dao.insertar(proformaDePrueba(cliente = "Cliente reciente", fecha = 2000L))
@@ -53,6 +58,7 @@ class ProformaDaoTest {
         assertEquals(listOf("Cliente reciente", "Cliente antiguo"), recuperadas.map { it.clienteNombre })
     }
 
+    // Verifica el caso: proforma de prueba.
     private fun proformaDePrueba(cliente: String, fecha: Long) = Proforma(
         clienteNombre = cliente,
         clienteCorreo = "cliente@example.com",

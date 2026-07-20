@@ -1,3 +1,4 @@
+// Guarda clientes recientes para reutilizarlos en nuevas proformas.
 package com.app.protrack.utils
 
 import android.content.Context
@@ -11,6 +12,7 @@ class CustomerCache(context: Context) {
     private val prefs: SharedPreferences = context.getSharedPreferences("customer_cache", Context.MODE_PRIVATE)
     private val gson = Gson()
 
+    // Guarda un cliente reciente evitando duplicados.
     fun saveCustomer(name: String, email: String) {
         val customers = getCustomers().toMutableList()
         // Evitar duplicados por email
@@ -23,6 +25,7 @@ class CustomerCache(context: Context) {
         prefs.edit().putString("customers_json", gson.toJson(limitedList)).apply()
     }
 
+    // Recupera la lista de clientes almacenada localmente.
     fun getCustomers(): List<CustomerInfo> {
         val json = prefs.getString("customers_json", null) ?: return emptyList()
         val type = object : TypeToken<List<CustomerInfo>>() {}.type

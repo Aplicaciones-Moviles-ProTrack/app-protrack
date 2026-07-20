@@ -1,3 +1,4 @@
+// Construye, valida, genera y envía una proforma.
 package com.app.protrack
 
 import android.content.Intent
@@ -39,6 +40,7 @@ class ProformaFragment : Fragment(R.layout.fragment_proforma) {
     private lateinit var customerCache: CustomerCache
     private val historyViewModel: ProformaHistoryViewModel by activityViewModels()
 
+    // Configura vistas, estado y eventos de la pantalla.
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 

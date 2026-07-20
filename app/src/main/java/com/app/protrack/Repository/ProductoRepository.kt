@@ -1,3 +1,4 @@
+// Centraliza el acceso al catálogo almacenado en Firestore.
 package com.app.protrack.Repository
 
 import com.app.protrack.models.Producto
@@ -10,6 +11,7 @@ class ProductoRepository {
     private val coleccion = db.collection("productos")
 
 
+    // Consulta en Firestore los productos activos.
     suspend fun obtenerCatalogo(): List<Producto> {
         return try {
             val snapshot = coleccion.whereEqualTo("activo", true).get().await()
@@ -20,6 +22,7 @@ class ProductoRepository {
         }
     }
 
+    // Guarda un producto usando el formato esperado por Firestore.
     suspend fun guardarProducto(producto: Producto): Boolean {
         return try {
             val documento = if (producto.id_producto.isEmpty()) coleccion.document() else coleccion.document(producto.id_producto)
@@ -47,6 +50,7 @@ class ProductoRepository {
         }
     }
 
+    // Actualiza únicamente el stock del producto indicado.
     suspend fun actualizarStock(idProducto: String, nuevoStock: Int): Boolean {
         return try {
             // Utilizamos notación de puntos para actualizar un campo dentro de un mapa/objeto (inventario)
@@ -60,6 +64,7 @@ class ProductoRepository {
         }
     }
 
+    // Busca y convierte un producto por su identificador.
     suspend fun obtenerProductoPorId(idProducto: String): Producto? {
         return try {
             val documento = coleccion.document(idProducto).get().await()

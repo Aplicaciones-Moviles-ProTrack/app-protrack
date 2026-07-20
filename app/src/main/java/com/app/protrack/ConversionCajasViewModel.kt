@@ -1,3 +1,4 @@
+// Conecta la interfaz con el cálculo de cajas necesarias.
 package com.app.protrack
 
 import androidx.lifecycle.ViewModel
@@ -8,6 +9,7 @@ class ConversionCajasViewModel : ViewModel() {
 
     private val calculator = ConversionCajasCalculator()
 
+    // Calcula las cajas requeridas para el producto seleccionado.
     fun calcularCajas(
         areaTexto: String,
         producto: Producto?

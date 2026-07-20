@@ -1,3 +1,4 @@
+// Muestra productos con stock bajo en la lista de alertas.
 package com.app.protrack.Adapter
 
 import android.view.LayoutInflater
@@ -11,17 +12,21 @@ import com.app.protrack.models.Producto
 class AlertaAdapter(private var listaAlertas: List<Producto> = emptyList()) :
     RecyclerView.Adapter<AlertaAdapter.AlertaViewHolder>() {
 
+    // Crea el contenedor visual de un elemento de la lista.
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AlertaViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_alerta, parent, false)
         return AlertaViewHolder(view)
     }
 
+    // Devuelve la cantidad de elementos que se mostrarán.
     override fun getItemCount(): Int = listaAlertas.size
 
+    // Vincula los datos con el elemento visible.
     override fun onBindViewHolder(holder: AlertaViewHolder, position: Int) {
         holder.bind(listaAlertas[position])
     }
 
+    // Reemplaza la lista y refresca los elementos visibles.
     fun actualizarLista(nuevaLista: List<Producto>) {
         listaAlertas = nuevaLista
         notifyDataSetChanged()

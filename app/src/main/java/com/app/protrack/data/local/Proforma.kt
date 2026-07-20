@@ -1,3 +1,4 @@
+// Representa una proforma persistida en la base de datos local.
 package com.app.protrack.data.local
 
 import androidx.room.Entity

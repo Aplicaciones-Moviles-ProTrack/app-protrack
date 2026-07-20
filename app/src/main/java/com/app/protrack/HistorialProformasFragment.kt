@@ -1,3 +1,4 @@
+// Gestiona la consulta, filtro y reenvío de proformas guardadas.
 package com.app.protrack
 
 import android.content.ActivityNotFoundException
@@ -35,6 +36,7 @@ class HistorialProformasFragment : Fragment(R.layout.fragment_historial_proforma
     private var textoBusqueda = ""
     private var filtroSeleccionado = R.id.chipTodas
 
+    // Configura vistas, estado y eventos de la pantalla.
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         ViewCompat.setOnApplyWindowInsetsListener(view) { root, windowInsets ->
@@ -80,6 +82,7 @@ class HistorialProformasFragment : Fragment(R.layout.fragment_historial_proforma
         }
     }
 
+    // Aplica filtros y actualiza el resumen del historial.
     private fun actualizarListado(
         adapter: HistorialProformaAdapter,
         recycler: RecyclerView,
@@ -114,6 +117,7 @@ class HistorialProformasFragment : Fragment(R.layout.fragment_historial_proforma
         acumulado.text = getString(R.string.precio_soles, filtradas.sumOf { it.total })
     }
 
+    // Muestra los datos principales de la proforma seleccionada.
     private fun mostrarDetalle(proforma: Proforma) {
         AlertDialog.Builder(requireContext())
             .setTitle(proforma.clienteNombre)
@@ -131,6 +135,7 @@ class HistorialProformasFragment : Fragment(R.layout.fragment_historial_proforma
             .show()
     }
 
+    // Reenvía el PDF guardado al correo del cliente.
     private fun reenviarProforma(proforma: Proforma) {
         val archivo = File(proforma.rutaPdf)
         if (!archivo.exists()) {
@@ -153,6 +158,7 @@ class HistorialProformasFragment : Fragment(R.layout.fragment_historial_proforma
         }
     }
 
+    // Abre el PDF mediante una aplicación compatible.
     private fun abrirPdf(proforma: Proforma) {
         val archivo = File(proforma.rutaPdf)
         if (!archivo.exists()) {

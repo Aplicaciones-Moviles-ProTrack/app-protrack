@@ -1,3 +1,4 @@
+<!-- Agrupa recursos reutilizables para themes. -->
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
     <style name="Base.Theme.Protrack" parent="Theme.Material3.DayNight.NoActionBar">

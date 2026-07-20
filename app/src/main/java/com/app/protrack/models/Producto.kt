@@ -1,3 +1,4 @@
+// Define los modelos del catálogo y del inventario.
 package com.app.protrack.models
 
 data class Producto(

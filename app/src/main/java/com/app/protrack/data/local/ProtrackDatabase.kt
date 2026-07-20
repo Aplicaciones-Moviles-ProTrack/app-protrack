@@ -1,3 +1,4 @@
+// Configura y expone la base de datos Room de la aplicación.
 package com.app.protrack.data.local
 
 import android.content.Context
